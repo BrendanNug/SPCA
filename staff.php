@@ -102,25 +102,25 @@ while($a < sizeof($vals)/2){
 </div>
 
 <form action="staff.php" method="post">
-	<input type="hidden" name="a">
-	<input type="hidden" name="b">
-	<input type="hidden" name="c" value="*">
-	<input type="hidden" name="d" value="animals">
+	<input type="hidden" name="a" value="SELECT * FROM animal">
+	<input type="hidden" name="b" value="">
+	<input type="hidden" name="c" value="">
+	<input type="hidden" name="d" value="">
 	<input type="submit" value="View All Animals">
 </form>
 
 <form action="staff.php" method="post">
-	<input type="hidden" name="a">
-	<input type="hidden" name="b">
-	<input type="hidden" name="c" value="*">
-	<input type="hidden" name="d" value="animals">
+    <input type="hidden" name="a" value="SELECT * FROM animal WHERE RNum IS NULL AND ALocation IN (SELECT SNum FROM shelter)">
+	<input type="hidden" name="b" value="">
+	<input type="hidden" name="c" value="">
+	<input type="hidden" name="d" value="">
 	<input type="submit" value="Animals who went from SPCA directly to shelter">
 </form>
 <form action="staff.php" method="post">
-	<input type="hidden" name="a">
-	<input type="hidden" name="b">
-	<input type="hidden" name="c" value="*">
-	<input type="hidden" name="d" value="employees">
+    <input type="hidden" name="a" value="SELECT * FROM donor">
+	<input type="hidden" name="b" value="">
+	<input type="hidden" name="c" value="">
+	<input type="hidden" name="d" value="">
 	<input type="submit" value="View Donors">
 </form>
 
