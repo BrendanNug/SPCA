@@ -60,36 +60,41 @@ try {
 
     $dbh = new PDO('mysql:host=localhost;dbname=spca_db', "root", "");
     $rows = $dbh->query("$valA$valB$valC$valD");
-    $row = $rows->fetchAll();
-    $columnsNames = array_keys($row[0]);
-    echo "<thead>";
-    echo "<tr>";
-    $a = 0;
-    while($a < sizeof($columnsNames)){
-        echo "<td>".$columnsNames[$a]."</td>";
-        $a = $a + 2;
-    }
-    echo "</tr>";
-    echo "</thead>";
-    foreach($row as $vals) {
-    echo "<tbody>";
-    echo "<tr>";
-
-    $a = 0;
-    while($a < sizeof($vals)/2){
-        echo "<td>".$vals[$a]."</td>";	
-        $a=$a+1;
+    if ($rows){
+        $row = $rows->fetchAll();
+        $columnsNames = array_keys($row[0]);
+        echo "<thead>";
+        echo "<tr>";
+        $a = 0;
+        while($a < sizeof($columnsNames)){
+            echo "<td>".$columnsNames[$a]."</td>";
+            $a = $a + 2;
         }
         echo "</tr>";
+        echo "</thead>";
+        foreach($row as $vals) {
+        echo "<tbody>";
+        echo "<tr>";
 
-        echo "</tbody>";
+        $a = 0;
+        while($a < sizeof($vals)/2){
+            echo "<td>".$vals[$a]."</td>";	
+            $a=$a+1;
+            }
+            echo "</tr>";
+
+            echo "</tbody>";
+        }
+            $dbh = null;
     }
-        $dbh = null;
+    else{
+        echo "<h3>Sorry, the info your looking for could not be found!</h3>";
+        echo "<h3>Try altering you search and checking again</h3>";
+    }
 }
-catch(\Exception $e)
-{
-echo "<h3>Sorry, the info your looking for could not be found!</h3>";
-echo "<h3>Try altering you search and checking again</h3>";
+catch(ErrorException $e) {
+    echo "<h3>Sorry, the info your looking for could not be found!</h3>";
+    echo "<h3>Try altering you search and checking again</h3>";
 }
 
 ?>
