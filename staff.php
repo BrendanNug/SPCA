@@ -43,42 +43,57 @@ SPCA Staff
 <table class="spcaTable">
 
 <?php
- $valA = $_POST["a"];                      
- $valB = $_POST["b"];
- $valC = $_POST["c"];
- $valD = $_POST["d"];
-echo "<h3>Hello</h3>";
-echo "<p>What action should be done?</p>";
+set_error_handler(function($errno, $errstr, $errfile, $errline, $errcontext) {
+    if (0 === error_reporting()) {
+        return false;
+    }
+    throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+});
 
-$dbh = new PDO('mysql:host=localhost;dbname=spca_db', "root", "");
-$rows = $dbh->query("$valA$valB$valC$valD");
-$row = $rows->fetchAll();
-$columnsNames = array_keys($row[0]);
-echo "<thead>";
-echo "<tr>";
-$a = 0;
-while($a < sizeof($columnsNames)){
-	echo "<td>".$columnsNames[$a]."</td>";
-	$a = $a + 2;
+try {
+    $valA = $_POST["a"];                      
+    $valB = $_POST["b"];
+    $valC = $_POST["c"];
+    $valD = $_POST["d"];
+    echo "<h3>Hello</h3>";
+    echo "<p>What action should be done?</p>";
+
+    $dbh = new PDO('mysql:host=localhost;dbname=spca_db', "root", "");
+    $rows = $dbh->query("$valA$valB$valC$valD");
+    $row = $rows->fetchAll();
+    $columnsNames = array_keys($row[0]);
+    echo "<thead>";
+    echo "<tr>";
+    $a = 0;
+    while($a < sizeof($columnsNames)){
+        echo "<td>".$columnsNames[$a]."</td>";
+        $a = $a + 2;
+    }
+    echo "</tr>";
+    echo "</thead>";
+    foreach($row as $vals) {
+    echo "<tbody>";
+    echo "<tr>";
+
+    $a = 0;
+    while($a < sizeof($vals)/2){
+        echo "<td>".$vals[$a]."</td>";	
+        $a=$a+1;
+        }
+        echo "</tr>";
+
+        echo "</tbody>";
+    }
+        $dbh = null;
 }
-echo "</tr>";
-echo "</thead>";
-foreach($row as $vals) {
-echo "<tbody>";
-echo "<tr>";
-
-$a = 0;
-while($a < sizeof($vals)/2){
-	echo "<td>".$vals[$a]."</td>";	
-	$a=$a+1;
-	}
-	echo "</tr>";
-
-	echo "</tbody>";
+catch(\Exception $e)
+{
+echo "<h3>Sorry, the info your looking for could not be found!</h3>";
+echo "<h3>Try altering you search and checking again</h3>";
 }
-    $dbh = null;
 
 ?>
+	
 <form action="move.php">
 	<input type="submit" value="Move Animal">
 </form>
