@@ -45,6 +45,12 @@ SPCA Staff
 
 <table class="spcaTable">
 <?php
+set_error_handler(function($errno, $errstr, $errfile, $errline, $errcontext) {
+    if (0 === error_reporting()) {
+        return false;
+    }
+    throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+});
 try{
     $valA = $_POST["a"];                      
     $valB = $_POST["b"];
@@ -61,17 +67,21 @@ try{
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
      $sql = "$valA$valB$valC$valD$valE$valF$valG$valH$valI$valJ$valK";
-    //$sql = "Update animal SET SNum=$valB WHERE AID=$valD";
-    // Prepare statement
+    
     $stmt = $conn->prepare($sql);
+    if($stmt){
+        $stmt->execute();
+        echo "<h3>Completed!</h3>";
+    }
+    else{
+        echo "<h3>Your request could not be completed!</h3>";
+        echo "<h3>Please try again</h3>";
 
-    // execute the query
-    $stmt->execute();
-    // $dbh->query("$valA$valB$valC$valD");
+    }
 }
-    catch(PDOException $e)
-    {
-    echo $sql . "<br>" . $e->getMessage();
+    catch(\Exception $e){
+        echo "<h3>Your request could not be completed!</h3>";
+        echo "<h3>Please try again</h3>";
     }
 
 $conn = null;
