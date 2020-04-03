@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <Title>
-SPCA Staff
+Donation Status
 </Title>
 <head>
 <link href="basic.css" type="text/css" rel="stylesheet" >
@@ -36,8 +36,8 @@ SPCA Staff
         <a href="login.html">Staff Login</a>
 
     </div>
-    <h1>Thank you!</h1>
-    <form id="return" action="firstpage.html">
+    <h1>Donation Status</h1>
+    <form id="return" action="index.html">
         <input type="submit" value="Home">
     </form>
 
@@ -63,20 +63,26 @@ try{
     $valI = $_POST["i"];
     $valJ = $_POST["j"];
     $valK = $_POST["k"];
-    $conn = new PDO('mysql:host=localhost;dbname=spca_db', "root", "");
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    if($valD.is_numeric){
+        $conn = new PDO('mysql:host=localhost;dbname=spca_db', "root", "");
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-     $sql = "$valA$valB$valC$valD$valE$valF$valG$valH$valI$valJ$valK";
-    
-    $stmt = $conn->prepare($sql);
-    if($stmt){
-        $stmt->execute();
-        echo "<h3>Completed!</h3>";
+        $sql = "$valA$valB$valC$valD$valE$valF$valG$valH$valI$valJ$valK";
+        
+        $stmt = $conn->prepare($sql);
+        if($stmt){
+            $stmt->execute();
+            echo "<h3>Completed!</h3>";
+            echo "<h3>Thank you!</h3>";
+        }
+        else{
+            echo "<h3>Your request could not be completed!</h3>";
+            echo "<h3>Please try again</h3>";
+
+        }
     }
     else{
-        echo "<h3>Your request could not be completed!</h3>";
-        echo "<h3>Please try again</h3>";
-
+        throw new Exception;
     }
 }
     catch(\Exception $e){
