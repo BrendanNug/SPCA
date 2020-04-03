@@ -36,7 +36,7 @@ SPCA Staff
         <a href="login.html">Staff Login</a>
 
     </div>
-    <h1>Completed</h1>
+    <h1>Status</h1>
     <form id="return" action="staff.php" method="post">
         <input type="hidden" name="a" value="SELECT * FROM animal">
         <input type="hidden" name="b" value="">
@@ -49,6 +49,12 @@ SPCA Staff
 
 <table class="spcaTable">
 <?php
+set_error_handler(function($errno, $errstr, $errfile, $errline, $errcontext) {
+    if (0 === error_reporting()) {
+        return false;
+    }
+    throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+});
 try{
     $valA = $_POST["a"];                      
     $valB = $_POST["b"];
@@ -58,17 +64,21 @@ try{
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
      $sql = "$valA $valB $valC $valD";
-    //$sql = "Update animal SET SNum=$valB WHERE AID=$valD";
-    // Prepare statement
-    $stmt = $conn->prepare($sql);
 
-    // execute the query
-    $stmt->execute();
-    // $dbh->query("$valA$valB$valC$valD");
+    $stmt = $conn->prepare($sql);
+    if($stmt){
+        $stmt->execute();
+        echo "<h3>Completed!</h3>";
+    }
+    else{
+        echo "<h3>Your request could not be completed!</h3>";
+        echo "<h3>Please try again</h3>";
+
+    }
 }
-    catch(PDOException $e)
-    {
-    echo $sql . "<br>" . $e->getMessage();
+    catch(\Exception $e){
+        echo "<h3>Your request could not be completed!</h3>";
+        echo "<h3>Please try again</h3>";
     }
 
 $conn = null;
