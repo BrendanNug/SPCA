@@ -19,9 +19,6 @@ SPCA Staff
                 </svg>
             </a>
         </span>
-        <ul class="navbar-nav">
-            <li><a href="donor.php">Donate Today</a></li>
-        </ul>
     </nav>
     
     <div id="side-menu" class="side-nav">
