@@ -26,8 +26,8 @@ SPCA Staff
     
     <div id="side-menu" class="side-nav">
         <a href="#" class="menu-close" onclick="closeSideMenu()">&times;</a>
-        <a href="firstpage.html">Home</a>
-        <form id="animals" action="myfirstPHP.php" method="POST">
+        <a href="index.html">Home</a>
+        <form id="animals" action="animals.php" method="POST">
           <input type="hidden" name="a" value="*">
           <input type="hidden" name="b" value="animals">
           <a href="#" onclick="document.getElementById('animals').submit();">
@@ -154,7 +154,7 @@ echo "<h3>Try altering you search and checking again</h3>";
 
 </body>
 
-<form action="firstpage.html">
+<form action="index.html">
 	<input type="submit" value="Home">
 </form>
 
