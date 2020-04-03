@@ -61,6 +61,7 @@ echo "<h3>Sorry, the info your looking for could not be found!</h3>";
     }
 
 ?>
+</table>
 </body>
 <form action="index.html">
 
