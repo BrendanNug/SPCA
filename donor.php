@@ -10,7 +10,7 @@ Donors
 <h2>Find a Donor</h2>
 
 <?php
-echo "<p>What action should be done?</p>";
+echo "<p>Please enter a donor name</p>";
 ?>
 
 <form action="staff.php" method="post">
@@ -21,8 +21,53 @@ echo "<p>What action should be done?</p>";
 <input type="hidden" name="d" value="">
 <input type="submit">
 </form> 
- </body>
-<form action="firstpage.html">
+<table class="spcaTable">
+<?php
+set_error_handler(function($errno, $errstr, $errfile, $errline, $errcontext) {
+    if (0 === error_reporting()) {
+        return false;
+    }
+    throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+});
+
+try {
+
+    $dbh = new PDO('mysql:host=localhost;dbname=spca_db', "root", "");
+    $rows = $dbh->query("SELECT Distinct DName FROM donor");
+    if($rows){
+        $row = $rows->fetchAll();
+        $columnsNames = array_keys($row[0]);
+        echo "<thead>";
+        echo "<tr>";
+        $a = 0;
+        $b = 0;
+        echo "<td>Name</td>";
+        echo "</tr>";
+        echo "</thead>";
+        foreach($row as $vals) {
+            echo "<tbody>";
+            echo "<tr>";
+            
+
+                echo "<td>".$vals['DName']."</td>";	
+                echo "</tr>";
+            
+                echo "</tbody>";
+            }
+        $dbh = null;
+    }
+    else{
+        echo "<h3>Sorry, the info your looking for could not be found!</h3>";
+    }
+}
+catch(\Exception $e) {
+echo "<h3>Sorry, the info your looking for could not be found!</h3>";
+    }
+
+?>
+</table>
+</body>
+<form action="index.html">
 
 <input type="submit" value="Home">
 </form>
