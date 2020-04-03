@@ -21,13 +21,13 @@ SPCA Animals
             </a>
         </span>
         <ul class="navbar-nav">
-            <li><a href="firstpage.html">Home</a></li>
+            <li><a href="index.html">Home</a></li>
         </ul>
     </nav>
     
     <div id="side-menu" class="side-nav">
         <a href="#" class="menu-close" onclick="closeSideMenu()">&times;</a>
-        <a href="firstpage.html">Home</a>
+        <a href="index.html">Home</a>
         <a href="login.html">Staff Login</a>
 
     </div>
@@ -74,12 +74,7 @@ SPCA Animals
 ?>
 
 </table>
-<div id="main" class="main-message">
-<form id="animals" action="adopt.html">
-        <h2><a href="#" onclick="document.getElementById('animals').submit();">
-          ***Adopt***</a></h2>
-      </form>
-</div>
+
 <script>
         function openSideMenu(){
             document.getElementById('side-menu').style.width = '250px';
