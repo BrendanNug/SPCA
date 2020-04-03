@@ -41,37 +41,48 @@ SPCA Animals
 	</div>
 
 <?php
-	$dbh = new PDO('mysql:host=localhost;dbname=spca_db', "root", "");
-	$rows = $dbh->query("SELECT * FROM animal");
-	$row = $rows->fetchAll();
-	$columnsNames = array_keys($row[0]);
-	echo "<thead>";
-	echo "<tr>";
-	$a = 0;
-	$b = 0;
-	echo "<td>Animal ID</td><td>Name</td><td>Type</td><td>Location ID</td>";
-	// while($a < sizeof($columnsNames)){
-	// 	echo "<td>".$columnsNames[$a]."</td>";
-	// 	$a = $a + 2;
-	// }
-	echo "</tr>";
-	echo "</thead>";
-	foreach($row as $vals) {
-		echo "<tbody>";
-		echo "<tr>";
-		
-		// $a = 0;
-		// while($a < sizeof($vals)/2){
-			echo "<td>".$vals['AID']."</td><td>".$vals['AName']."</td><td>".$vals['AType']."</td><td>".$vals['ALocation']."</td>";	
-			// $a=$a+1;
-			// }
-			echo "</tr>";
-		
-			echo "</tbody>";
-		}
-    $dbh = null;
+    set_error_handler(function($errno, $errstr, $errfile, $errline, $errcontext) {
+        if (0 === error_reporting()) {
+            return false;
+        }
+        throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+    });
+
+    try {
+        $dbh = new PDO('mysql:host=localhost;dbname=spca_db', "root", "");
+        $rows = $dbh->query("SELECT * FROM animal");
+        if($rows){
+            $row = $rows->fetchAll();
+            $columnsNames = array_keys($row[0]);
+            echo "<thead>";
+            echo "<tr>";
+            $a = 0;
+            $b = 0;
+            echo "<td>Animal ID</td><td>Name</td><td>Type</td><td>Location ID</td>";
+            echo "</tr>";
+            echo "</thead>";
+            foreach($row as $vals) {
+                echo "<tbody>";
+                echo "<tr>";
+                
+
+                    echo "<td>".$vals['AID']."</td><td>".$vals['AName']."</td><td>".$vals['AType']."</td><td>".$vals['ALocation']."</td>";	
+                    echo "</tr>";
+                
+                    echo "</tbody>";
+                }
+            $dbh = null;
+        }
+        else{
+            echo "<h3>Sorry, the info your looking for could not be found!</h3>";
+        }
+    }
+    catch(\Exception $e) {
+    echo "<h3>Sorry, the info your looking for could not be found!</h3>";
+        }
 
 ?>
+
 
 </table>
 
