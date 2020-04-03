@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <Title>
-Animals by Organization
+Animals Rescued
 </Title>
 <head>
 <link href="basic.css" type="text/css" rel="stylesheet" >
@@ -18,7 +18,7 @@ Animals by Organization
 <input type="submit">
 </form> 
  </body>
-<form action="firstpage.html">
+<form action="index.html">
 
 <input type="submit" value="Home">
 </form>
