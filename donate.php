@@ -14,7 +14,7 @@ Donate
 <p>Name:</p>
 <input type="text" name="b"><br>
 <input type="hidden" name="c" value="', '">
-<p>Amount($):</p>
+<p>Amount (Do not include $ sign):</p>
 <input type="text" name="d">
 <input type="hidden" name="e" value="', CURRENT_TIMESTAMP, '">
 <p>Location ID:</p>
